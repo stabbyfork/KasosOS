@@ -1,5 +1,5 @@
 #wget
-https://api.github.com/repos/stabbyfork/KasosOS/contents/KasosOS
+?https://api.github.com/repos/stabbyfork/KasosOS/contents/KasosOS
 
 #wget run
 !/PC/system/lib/basalt.lua
