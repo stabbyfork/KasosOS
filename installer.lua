@@ -34,7 +34,9 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         if err then
             print(err, errResp)
         end
-        print(textutils.serialise(request.readAll()))
+        for url in request.readAll() do
+            print(url)
+        end
         os.sleep(5)
     end
     if selectedName == "" then
