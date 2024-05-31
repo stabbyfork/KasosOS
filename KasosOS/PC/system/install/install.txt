@@ -1,7 +1,7 @@
-https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/main.lua
+https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/main.lua main.lua 
 
-https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt
-https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/installer.lua
+https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt install.txt
+https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/installer.lua installer.lua
 
 
 https://basalt.madefor.cc/install.lua packed
