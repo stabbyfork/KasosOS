@@ -1,1 +1,0 @@
-wget run https://basalt.madefor.cc/install.lua packed
