@@ -7,5 +7,5 @@ https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install
 https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/misc/credits.txt
 
 #wget run
-!PC/system/lib/basalt.lua
+!/PC/system/lib/basalt.lua
 https://basalt.madefor.cc/install.lua packed
