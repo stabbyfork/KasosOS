@@ -3,7 +3,7 @@ if not fs.exists("PC") then
 else
     print("PC directory already exists")
 end
-fs.makeDir("PC/desktop")
+--[[fs.makeDir("PC/desktop")
 fs.makeDir("PC/system")
 fs.makeDir("PC/system/assets")
 fs.makeDir("PC/system/config")
@@ -14,7 +14,7 @@ fs.makeDir("PC/system/assets/desktop")
 fs.makeDir("PC/system/assets/system")
 fs.makeDir("PC/system/lib")
 fs.makeDir("PC/system/misc")
-fs.makeDir("PC/system/install")
+fs.makeDir("PC/system/install")--]]
 
 local installList = "https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt"
 local toInstall = http.get(installList)
@@ -29,6 +29,9 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
     elseif firstChar == "!" then
         selectedName = line:sub(2)
         goto continue
+    elseif firstChar == "?" then
+        local request = http.get(line:sub(2))
+        print(request.readAll())
     end
     if selectedName == "" then
         local startIndex = line:find("KasosOS", 1, true)
