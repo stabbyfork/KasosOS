@@ -3,7 +3,6 @@ if not fs.exists("PC") then
 else
     print("PC directory already exists")
 end
-print("1")
 fs.makeDir("PC/desktop")
 fs.makeDir("PC/system")
 fs.makeDir("PC/system/assets")
@@ -16,13 +15,26 @@ fs.makeDir("PC/system/assets/system")
 fs.makeDir("PC/system/lib")
 fs.makeDir("PC/system/misc")
 fs.makeDir("PC/system/install")
-print("2")
 
-local installList = "https://github.com/stabbyfork/KasosOS/blob/main/KasosOS/PC/system/install/install.txt"
-local toInstall = http.get(installList).readAll()
-print("3")
-for line in toInstall:gmatch("[^\n]+") do
-    shell.run("wget", "run", line)
+local installList = "https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt"
+local toInstall = http.get(installList)
+local executable = ""
+for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
+    line = line:gsub("[\n\r]", " ")
+    if line:sub(1, 1) == "#" then
+        executable = line:sub(2)
+        print(executable)
+        goto continue
+    end
+    local startIndex = line:find("KasosOS", 1, true)
+    if startIndex then
+        local path = line:sub(line:find("KasosOS", startIndex+1, true) + 8)
+        shell.run(executable, line, path)
+    else
+        shell.run(executable, line)
+    end
+    ::continue::
 end
+toInstall.close()
 
 print("Installer complete")
