@@ -35,8 +35,8 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
             print(err, errResp)
         end
         print("new3")
-        print(textutils.unserialiseJSON(request.readAll()))
-        for url in textutils.unserialiseJSON(request.readAll()) do
+        --print(textutils.unserialiseJSON(request.readAll()))
+        for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
             print(url)
         end
         os.sleep(5)
