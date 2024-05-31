@@ -29,8 +29,6 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
     elseif firstChar == "!" then
         selectedDir = line:sub(2)
         goto continue
-    else
-        selectedDir = ""
     end
     local startIndex = line:find("KasosOS", 1, true)
     if startIndex then
@@ -40,6 +38,7 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         shell.run("cd", selectedDir)
         shell.run(executable, line)
     end
+    selectedDir = ""
     ::continue::
 end
 toInstall.close()
