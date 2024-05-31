@@ -30,15 +30,20 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         selectedDir = line:sub(2)
         goto continue
     end
-    local startIndex = line:find("KasosOS", 1, true)
-    if startIndex then
-        local path = line:sub(line:find("KasosOS", startIndex+1, true) + 8)
-        shell.run(executable, line, path)
+    if selectedDir ~= "" then
+        local startIndex = line:find("KasosOS", 1, true)
+        if startIndex then
+            local path = line:sub(line:find("KasosOS", startIndex+1, true) + 8)
+            shell.run(executable, line, path)
+        end
+        print("File without directory annotation")
+        os.sleep(0.5)
     else
-        shell.setDir(selectedDir)
-        print(shell.dir())
-        os.sleep(3)
-        shell.run(executable, line)
+        --shell.setDir(selectedDir)
+        --print(shell.dir())
+        --os.sleep(3)
+        shell.run("wget", line, selectedDir .. "temporary.lua")
+        shell.run("lua temporary.lua")
     end
     selectedDir = ""
     ::continue::
