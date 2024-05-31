@@ -37,10 +37,12 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         print("new5")
         --print(textutils.unserialiseJSON(request.readAll()))
         for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
+            print(type(url))
             print(textutils.serialise(url))
+            os.sleep(5)
         end
         request.close()
-        os.sleep(5)
+        --os.sleep(5)
     end
     if selectedName == "" then
         local startIndex = line:find("KasosOS", 1, true)
