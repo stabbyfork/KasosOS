@@ -35,7 +35,7 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         local path = line:sub(line:find("KasosOS", startIndex+1, true) + 8)
         shell.run(executable, line, path)
     else
-        shell.run("cd", selectedDir)
+        shell.setDir(selectedDir)
         shell.run(executable, line)
     end
     selectedDir = ""
