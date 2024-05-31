@@ -34,6 +34,7 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         if err then
             print(err, errResp)
         end
+        print("new")
         for url in textutils.unserialise(request.readAll()) do
             print(url)
         end
