@@ -35,7 +35,8 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
             print(err, errResp)
         end
         for url in request.readAll() do
-            print(url)
+            --print(url)
+            print("new")
         end
         --os.sleep(5)
     end
