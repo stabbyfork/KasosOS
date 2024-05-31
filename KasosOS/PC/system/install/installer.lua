@@ -36,6 +36,8 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         shell.run(executable, line, path)
     else
         shell.setDir(selectedDir)
+        print(shell.dir())
+        os.sleep(3)
         shell.run(executable, line)
     end
     selectedDir = ""
