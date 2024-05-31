@@ -19,18 +19,25 @@ fs.makeDir("PC/system/install")
 local installList = "https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt"
 local toInstall = http.get(installList)
 local executable = ""
+local selectedDir = ""
 for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
     line = line:gsub("[\n\r]", " ")
-    if line:sub(1, 1) == "#" then
+    local firstChar = line:sub(1, 1)
+    if firstChar == "#" then
         executable = line:sub(2)
-        print(executable)
         goto continue
+    elseif firstChar == "!" then
+        selectedDir = line:sub(2)
+        goto continue
+    else
+        selectedDir = ""
     end
     local startIndex = line:find("KasosOS", 1, true)
     if startIndex then
         local path = line:sub(line:find("KasosOS", startIndex+1, true) + 8)
         shell.run(executable, line, path)
     else
+        shell.run("cd", selectedDir)
         shell.run(executable, line)
     end
     ::continue::
