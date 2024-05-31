@@ -36,7 +36,7 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
             local path = line:sub(line:find("KasosOS", startIndex+1, true) + 8)
             shell.run(executable, line, path)
         else
-            print("File without directory annotation")
+            print("File without directory annotation: " .. line)
             os.sleep(0.5)
         end
     else

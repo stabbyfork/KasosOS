@@ -6,6 +6,9 @@ https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install
 
 https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/misc/credits.txt
 
+!/PC/system/lib/git-get.lua
+https://gist.githubusercontent.com/SquidDev/e0f82765bfdefd48b0b15a5c06c0603b/raw/clone.min.lua
+
 #wget run
 !/PC/system/lib/basalt.lua
 https://basalt.madefor.cc/install.lua packed
