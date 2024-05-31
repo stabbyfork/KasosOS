@@ -30,7 +30,10 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         selectedName = line:sub(2)
         goto continue
     elseif firstChar == "?" then
-        local request = http.get(line:sub(2))
+        local request, err, errResp = http.get({url=line:sub(2), headers={["Accept"]="application/vnd.github.raw+json"}})
+        if err then
+            print(err, errResp)
+        end
         print(request.readAll())
     end
     if selectedName == "" then
