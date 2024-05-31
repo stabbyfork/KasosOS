@@ -34,11 +34,12 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         if err then
             print(err, errResp)
         end
-        print("new3")
+        print("new4")
         --print(textutils.unserialiseJSON(request.readAll()))
         for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
             print(url)
         end
+        request.close()
         os.sleep(5)
     end
     if selectedName == "" then
