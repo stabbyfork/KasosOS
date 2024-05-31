@@ -37,7 +37,7 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         for url in request.readAll() do
             print(url)
         end
-        os.sleep(5)
+        --os.sleep(5)
     end
     if selectedName == "" then
         local startIndex = line:find("KasosOS", 1, true)
