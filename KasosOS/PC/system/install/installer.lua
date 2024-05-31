@@ -29,12 +29,13 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
     elseif firstChar == "!" then
         selectedName = line:sub(2)
         goto continue
-    elseif firstChar == "?" then
+    elseif firstChar == "?" then -- github repo
         local request, err, errResp = http.get({url=line:sub(2), headers={["Accept"]="application/vnd.github.raw+json"}})
         if err then
             print(err, errResp)
         end
         print(request.readAll())
+        os.sleep(5)
     end
     if selectedName == "" then
         local startIndex = line:find("KasosOS", 1, true)
