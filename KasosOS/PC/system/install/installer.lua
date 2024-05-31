@@ -19,7 +19,7 @@ fs.makeDir("PC/system/install")
 local installList = "https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt"
 local toInstall = http.get(installList)
 local executable = ""
-local selectedDir = ""
+local selectedName = ""
 for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
     line = line:gsub("[\n\r]", " ")
     local firstChar = line:sub(1, 1)
@@ -27,10 +27,10 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         executable = line:sub(2)
         goto continue
     elseif firstChar == "!" then
-        selectedDir = line:sub(2)
+        selectedName = line:sub(2)
         goto continue
     end
-    if selectedDir ~= "" then
+    if selectedName == "" then
         local startIndex = line:find("KasosOS", 1, true)
         if startIndex then
             local path = line:sub(line:find("KasosOS", startIndex+1, true) + 8)
@@ -39,13 +39,9 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         print("File without directory annotation")
         os.sleep(0.5)
     else
-        --shell.setDir(selectedDir)
-        --print(shell.dir())
-        --os.sleep(3)
-        shell.run("wget", line, selectedDir .. "temporary.lua")
-        shell.run("lua temporary.lua")
+        shell.run(executable, line, selectedName)
+        selectedName = ""
     end
-    selectedDir = ""
     ::continue::
 end
 toInstall.close()
