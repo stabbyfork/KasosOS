@@ -56,6 +56,8 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
 end
 toInstall.close()
 
+-- set paths
+package.path = '/KasosOS/PC/system/lib/?.lua;' .. package.path
 shell.setPath(shell.path() .. ":/KasosOS/PC/system/lib")
 
 print("Installer complete")
