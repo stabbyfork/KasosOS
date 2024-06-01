@@ -1,13 +1,14 @@
 local function downloadRepoRecursive(request)
     for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
+        local urlpath = "/" .. url.path
         if url.type == "file" then
-            if fs.exists(url.path) then
-                print(url.path .. " already exists")
-                fs.delete(url.path)
+            if fs.exists(urlpath) then
+                print(urlpath .. " already exists")
+                fs.delete(urlpath)
             end
-            shell.run("wget", url.download_url, url.path)
+            shell.run("wget", url.download_url, urlpath)
         elseif url.type == "dir" then
-            fs.makeDir(url.path)
+            fs.makeDir(urlpath)
             local newRequest, err, errResp = http.get({url=url.url, headers={["Accept"]="application/vnd.github.raw+json"}})
             if err then
                 print(err, errResp)
@@ -41,7 +42,7 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
     if selectedName == "" then
         local startIndex = line:find("KasosOS", 1, true)
         if startIndex then
-            local path = line:sub(line:find("KasosOS", startIndex+1, true) + 8)
+            local path = line:sub(line:find("KasosOS", startIndex+1, true) + 7)
             shell.run(executable, line, path)
         else
             print("File without directory annotation: " .. line)
