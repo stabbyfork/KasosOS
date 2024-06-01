@@ -3,14 +3,14 @@ local expect = expectReq.expect
 
 --- Generic user class with username and password pointer
 ---@class User
-local User = {}
+local User = {__call = function(self, username, password) return self:new(username, password) end}
 User.__index = User
 
 --- Create a new user
 ---@param username string The username
 ---@param password string The password pointer
 ---@return User user The user object
-function User.__call(username, password)
+function User:new(username, password)
     expect(1, username, "string")
     expect(2, password, "string")
 
