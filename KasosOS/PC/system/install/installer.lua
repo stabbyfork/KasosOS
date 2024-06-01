@@ -1,6 +1,10 @@
 local function downloadRepoRecursive(request)
     for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
         if url.type == "file" then
+            if fs.exists(url.path) then
+                print(url.path .. " already exists")
+                fs.delete(url.path)
+            end
             shell.run("wget", url.download_url, url.path)
         elseif url.type == "dir" then
             fs.makeDir(url.path)
@@ -12,31 +16,6 @@ local function downloadRepoRecursive(request)
         end
     end
 end
---[[fs.makeDir("PC/desktop")
-fs.makeDir("PC/system")
-fs.makeDir("PC/system/assets")
-fs.makeDir("PC/system/config")
-fs.makeDir("PC/system/logs")
-fs.makeDir("PC/system/users")
-fs.makeDir("PC/system/bootloader")
-fs.makeDir("PC/system/assets/desktop")
-fs.makeDir("PC/system/assets/system")
-fs.makeDir("PC/system/lib")
-fs.makeDir("PC/system/misc")
-fs.makeDir("PC/system/install")--]]
-
---[[for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
-    if url.type == "file" then
-        shell.run("wget", url.download_url, url.path)
-    elseif url.type == "dir" then
-        fs.makeDir(url.path)
-    end
-    print(type(url))
-    os.sleep(2)
-    print(textutils.serialise(url))
-    os.sleep(5)
-end
-request.close()--]]
 
 local installList = "https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt"
 local toInstall = http.get(installList)
