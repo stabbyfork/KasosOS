@@ -14,7 +14,6 @@ function User:__call(username, password)
     expect(1, username, "string")
     expect(2, password, "string")
 
-    ---@class User
     local instance = setmetatable({}, User)
     instance.username = username
     instance.password = password
@@ -47,4 +46,4 @@ function User:setPassword(password)
     self.password = password
 end
 
-
+return User
