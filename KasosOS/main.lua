@@ -1,4 +1,6 @@
-local expectReq, userCreator = require("cc.expect"), require("KasosOS.PC.system.lib.usercreate")
+print(shell.path())
+
+local expectReq, userCreator = require("cc.expect"), require("/KasosOS.PC.system.lib.usercreate")
 local expect, range = expectReq.expect, expectReq.range
 
 local user = userCreator.User("admin", "password")
