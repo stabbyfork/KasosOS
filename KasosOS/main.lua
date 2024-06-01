@@ -1,4 +1,4 @@
-print(shell.path())
+--print(shell.path())
 
 local expectReq, userCreator = require("cc.expect"), require("/KasosOS/PC/system/lib/usercreate")
 local expect, range = expectReq.expect, expectReq.range
@@ -23,7 +23,7 @@ DesktopElement.__index = DesktopElement
 ---@param relSize table | nil The size relative to the screen
 ---@param icon string | nil The path to the icon
 ---@return DesktopElement element The new desktop element
-function DesktopElement:__call(relPos, relSize, icon)
+function DesktopElement:new(relPos, relSize, icon)
     expect(1, relPos, "table")
     range(relPos[1], 0, 100)
     range(relPos[2], 0, 100)

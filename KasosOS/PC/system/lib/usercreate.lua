@@ -45,6 +45,6 @@ function User:setPassword(password)
     expect(1, password, "string")
     self.password = password
 end
-print("new")
+print("new2")
 print(User("admin", "password"))
 return User
