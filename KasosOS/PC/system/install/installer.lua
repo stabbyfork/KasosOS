@@ -16,12 +16,7 @@ local function downloadRepoRecursive(request)
             end
             downloadRepoRecursive(newRequest)
         end
-        print(type(url))
-        os.sleep(2)
-        print(textutils.serialise(url))
-        os.sleep(2)
     end
-    request.close()
 end
 --[[fs.makeDir("PC/desktop")
 fs.makeDir("PC/system")
@@ -67,10 +62,8 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         if err then
             print(err, errResp)
         end
-        print("new6")
-        term.redirect(peripheral.wrap("right"))
         downloadRepoRecursive(request)
-        --os.sleep(5)
+        request.close()
     end
     if selectedName == "" then
         local startIndex = line:find("KasosOS", 1, true)
