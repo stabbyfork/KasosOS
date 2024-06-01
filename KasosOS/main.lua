@@ -1,6 +1,8 @@
-local expectReq = require "cc.expect"
+local expectReq, userCreator = require("cc.expect"), require("KasosOS.PC.system.lib.usercreate")
 local expect, range = expectReq.expect, expectReq.range
 
+local user = userCreator.User("admin", "password")
+print(user:getUsername())
 --- Calculate the absolute position on the screen based on the relative position and screen size
 ---@param screenSize table The size of the screen in pixels
 ---@param relPos table The relative position on the screen in percent
@@ -19,7 +21,7 @@ DesktopElement.__index = DesktopElement
 ---@param relSize table | nil The size relative to the screen
 ---@param icon string | nil The path to the icon
 ---@return DesktopElement element The new desktop element
-function DesktopElement:new(relPos, relSize, icon)
+function DesktopElement:__call(relPos, relSize, icon)
     expect(1, relPos, "table")
     range(relPos[1], 0, 100)
     range(relPos[2], 0, 100)
@@ -80,10 +82,10 @@ function DesktopElement:getIcon()
     return self.icon
 end
 
-local element = DesktopElement:new({0,0})
+local element = DesktopElement({0,0})
 print(textutils.serialise(element:getSize()))
 
-local element2 = DesktopElement:new({10,10})
+local element2 = DesktopElement({10,10})
 print(textutils.serialise(element2:getPos()))
 
 local monitor = peripheral.wrap("right")
