@@ -11,7 +11,7 @@ local function downloadRepoRecursive(request)
             fs.makeDir(urlpath)
             local newRequest, err, errResp = http.get({url=url.url, headers={["Accept"]="application/vnd.github.raw+json"}})
             if err then
-                print(err, errResp)
+                print(err, textutils.serialise(errResp))
             end
             downloadRepoRecursive(newRequest)
         end
