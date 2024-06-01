@@ -1,5 +1,5 @@
-local expect = require "cc.expect"
-local expect, range = expect.expect, expect.range
+local expectReq = require "cc.expect"
+local expect, range = expectReq.expect, expectReq.range
 
 --- Calculate the absolute position on the screen based on the relative position and screen size
 ---@param screenSize table The size of the screen in pixels
@@ -18,6 +18,7 @@ DesktopElement.__index = DesktopElement
 ---@param relPos table The position relative to the screen
 ---@param relSize table | nil The size relative to the screen
 ---@param icon string | nil The path to the icon
+---@return DesktopElement element The new desktop element
 function DesktopElement:new(relPos, relSize, icon)
     expect(1, relPos, "table")
     range(relPos[1], 0, 100)
