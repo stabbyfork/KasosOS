@@ -1,9 +1,3 @@
-if not fs.exists("PC") then
-    fs.makeDir("PC")
-else
-    print("PC directory already exists")
-end
-
 local function downloadRepoRecursive(request)
     for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
         if url.type == "file" then
