@@ -10,7 +10,7 @@ User.__index = User
 ---@param username string The username
 ---@param password string The password pointer
 ---@return User user The user object
-function User:__call(username, password)
+function User.__call(username, password)
     expect(1, username, "string")
     expect(2, password, "string")
 
