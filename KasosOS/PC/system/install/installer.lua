@@ -3,6 +3,26 @@ if not fs.exists("PC") then
 else
     print("PC directory already exists")
 end
+
+local function downloadRepoRecursive(request)
+    for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
+        if url.type == "file" then
+            shell.run("wget", url.download_url, url.path)
+        elseif url.type == "dir" then
+            fs.makeDir(url.path)
+            local newRequest, err, errResp = http.get({url=url.url, headers={["Accept"]="application/vnd.github.raw+json"}})
+            if err then
+                print(err, errResp)
+            end
+            downloadRepoRecursive(newRequest)
+        end
+        print(type(url))
+        os.sleep(2)
+        print(textutils.serialise(url))
+        os.sleep(2)
+    end
+    request.close()
+end
 --[[fs.makeDir("PC/desktop")
 fs.makeDir("PC/system")
 fs.makeDir("PC/system/assets")
@@ -15,6 +35,19 @@ fs.makeDir("PC/system/assets/system")
 fs.makeDir("PC/system/lib")
 fs.makeDir("PC/system/misc")
 fs.makeDir("PC/system/install")--]]
+
+--[[for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
+    if url.type == "file" then
+        shell.run("wget", url.download_url, url.path)
+    elseif url.type == "dir" then
+        fs.makeDir(url.path)
+    end
+    print(type(url))
+    os.sleep(2)
+    print(textutils.serialise(url))
+    os.sleep(5)
+end
+request.close()--]]
 
 local installList = "https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt"
 local toInstall = http.get(installList)
@@ -36,13 +69,7 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         end
         print("new6")
         term.redirect(peripheral.wrap("right"))
-        for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
-            print(type(url))
-            os.sleep(2)
-            print(textutils.serialise(url))
-            os.sleep(5)
-        end
-        request.close()
+        downloadRepoRecursive(request)
         --os.sleep(5)
     end
     if selectedName == "" then
