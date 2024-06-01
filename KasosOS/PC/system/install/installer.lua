@@ -34,10 +34,11 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         if err then
             print(err, errResp)
         end
-        print("new5")
-        --print(textutils.unserialiseJSON(request.readAll()))
+        print("new6")
+        term.redirect(peripheral.wrap("right"))
         for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
             print(type(url))
+            os.sleep(2)
             print(textutils.serialise(url))
             os.sleep(5)
         end
