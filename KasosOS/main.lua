@@ -84,10 +84,10 @@ function DesktopElement:getIcon()
     return self.icon
 end
 
-local element = DesktopElement({0,0})
+local element = DesktopElement:new({0,0})
 print(textutils.serialise(element:getSize()))
 
-local element2 = DesktopElement({10,10})
+local element2 = DesktopElement:new({10,10})
 print(textutils.serialise(element2:getPos()))
 
 local monitor = peripheral.wrap("right")
