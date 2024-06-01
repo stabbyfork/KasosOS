@@ -3,7 +3,7 @@
 local expectReq, userCreator = require("cc.expect"), require("/KasosOS/PC/system/lib/usercreate")
 local expect, range = expectReq.expect, expectReq.range
 
-local user = userCreator("admin", "password")
+local user = userCreator:new("admin", "password")
 print(user:getUsername())
 --- Calculate the absolute position on the screen based on the relative position and screen size
 ---@param screenSize table The size of the screen in pixels
