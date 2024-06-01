@@ -55,4 +55,6 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
 end
 toInstall.close()
 
+shell.setPath("/KasosOS/PC/system/lib:" .. shell.path())
+
 print("Installer complete")
