@@ -4,7 +4,7 @@ local expect, range = expect.expect, expect.range
 --- Calculate the absolute position on the screen based on the relative position and screen size
 ---@param screenSize table The size of the screen in pixels
 ---@param relPos table The relative position on the screen in percent
----@return table table Absolute position on the screen in pixels
+---@return table absPos Absolute position on the screen in pixels
 local function absolutePos(screenSize, relPos)
     return {math.floor(relPos[1]/100 * screenSize[1]), math.floor(relPos[2]/100 * screenSize[2])}
 end
@@ -40,6 +40,8 @@ end
 ---@param pos table The new relative position
 function DesktopElement:setPos(pos)
     expect(1, pos, "table")
+    range(pos[1], 0, 100)
+    range(pos[2], 0, 100)
     self.relPos = pos
 end
 
@@ -53,6 +55,8 @@ end
 ---@param size table The new relative size
 function DesktopElement:setSize(size)
     expect(1, size, "table")
+    range(size[1], 0, 100)
+    range(size[2], 0, 100)
     self.relSize = size
 end
 
