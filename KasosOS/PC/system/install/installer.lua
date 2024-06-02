@@ -49,6 +49,9 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
             os.sleep(0.5)
         end
     else
+        if fs.exists(selectedName) then
+            fs.delete(selectedName)
+        end
         shell.run(executable, line, selectedName)
         selectedName = ""
     end

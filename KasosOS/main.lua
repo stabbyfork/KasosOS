@@ -1,6 +1,6 @@
 --print(shell.path())
 
-local expectReq, userCreator = require("cc.expect"), require("/KasosOS/PC/system/lib/usercreate")
+local expectReq, userCreator, sha = require("cc.expect"), require("/KasosOS/PC/system/lib/usercreate"), require("/KasosOS/PC/system/lib/sha256")
 local expect, range = expectReq.expect, expectReq.range
 
 local user = userCreator:new("admin", "password")
@@ -97,6 +97,7 @@ term.redirect(monitor)
 print(element:getIcon())
 local image = paintutils.loadImage(element:getIcon())
 paintutils.drawImage(image, absolutePos({monitorX, monitorY}, element2:getPos())[1], absolutePos({monitorX, monitorY}, element2:getPos())[2])
+sha.sha256("test")
 
 
 
