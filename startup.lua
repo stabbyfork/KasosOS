@@ -1,3 +1,4 @@
+settings.load("/.settings")
 local basalt = require("/KasosOS/PC/system/lib/basalt")
 local screen = term.current()
 
@@ -8,12 +9,15 @@ mainFrame:setTextureMode("center")
 local selectedUser = settings.get("selectedUser")
 local dataFrame = mainFrame:addFrame()
 dataFrame
-    :setPosition("parent.w/4", "parent.h/4")
-    :setSize("parent.w/2", "parent.h/2")
+    :setPosition("parent.w/4", "parent.h/4 - 5")
+    :setSize("parent.w/2", "parent.h/2 + 5")
+local dataFrameSize = {dataFrame:getSize()}
 local userProfile = dataFrame:addImage()
 userProfile
     :loadImage(settings.get("usersPath") .. selectedUser .. "/pfp.bimg")
-    :setPosition("parent.w/2", "parent.h/2")
+    :setPosition("parent.w/4", "parent.h/4")
+    :resizeImage(dataFrameSize[1]/2, dataFrameSize[2]/2)
+    :setImageSize(dataFrameSize[1]/2, dataFrameSize[2]/2)
 
 --- The time label
 local timeDisplay = mainFrame:addLabel()

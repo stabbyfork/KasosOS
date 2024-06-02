@@ -1,5 +1,6 @@
 local expectReq = require "cc.expect"
 local expect = expectReq.expect
+settings.load("/.settings")
 
 --- Generic user class with username and password
 ---@class User

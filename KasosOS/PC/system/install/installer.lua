@@ -73,9 +73,10 @@ local sha, userLib = require("/KasosOS/PC/system/lib/sha2"), require("/KasosOS/P
 -- USER SETUP
 local defaultUser = "Guest"
 local defaultPassword = "guestpassword"
-local usersPath = "/KasosOS/PC/system/users/"
+local usersPath = "/KasosOS/PC/system/.users/"
 local defaultProfileIcon = "/KasosOS/PC/system/assets/default_profile.bimg"
 
+settings.load("/.settings")
 if settings.get("usersPath") == nil then
     settings.define("usersPath", {default=usersPath, description="The path where userdata is stored (always '/' at the end), ONLY SYSTEM DATA, NOT APPS OR PROGRAMS", type="string"})
 end
@@ -94,6 +95,6 @@ if settings.get("defaultUser") == nil then
     end
 end
 
-settings.save()
+settings.save("/.settings")
 
 print("Installer complete")
