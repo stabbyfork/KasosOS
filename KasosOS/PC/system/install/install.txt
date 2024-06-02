@@ -1,6 +1,9 @@
 #wget
 ?https://api.github.com/repos/stabbyfork/KasosOS/contents/KasosOS
 
+!/KasosOS/PC/system/lib/sha256.lua
+https://github.com/Egor-Skriptunoff/pure_lua_SHA/raw/master/sha2.lua
+
 #wget run
 !/KasosOS/PC/system/lib/basalt.lua
 https://basalt.madefor.cc/install.lua packed
