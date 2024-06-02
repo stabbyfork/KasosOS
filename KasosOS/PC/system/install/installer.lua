@@ -37,7 +37,7 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
     elseif firstChar == "?" then -- github repo
         local request, err, errResp = http.get({url=line:sub(2), headers={["Accept"]="application/vnd.github.raw+json"}})
         if err then
-            print(err, textutils.serialise(errResp))
+            print(err, errResp.readAll())
             request.close()
             goto continue
         end
