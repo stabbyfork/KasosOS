@@ -1,9 +1,9 @@
 local basalt = require("/KasosOS/PC/system/lib/basalt")
 local screen = term.current()
 
---local mainFrame = basalt.createFrame()
---mainFrame:addTexture("/KasosOS/PC/system/assets/desktop/pack.bimg")
---mainFrame:setTextureMode("center")
+local mainFrame = basalt.createFrame()
+mainFrame:addTexture("/KasosOS/PC/system/assets/desktop/pack.bimg")
+mainFrame:setTextureMode("center")
 
 local time = os.time()
 local function updateTime()
@@ -17,7 +17,8 @@ end
 local function waitForInput()
     while true do
         local event, param = os.pullEvent()
-        if event == "key" or "mouse_click" then
+        if event == "key" or event == "mouse_click" then
+            print("key or mouse click")
             return
         elseif event == "monitor_touch" then
             screen = peripheral.wrap(param)
@@ -30,4 +31,11 @@ end
 
 parallel.waitForAny(updateTime, waitForInput)
 print("complete")
+mainFrame
+    :addInput()
+    :setInputType("password")
+    :setDefaultText("Password")
+    :setPosition("parent.w / 2 - parent.w / 4", "parent.h / 2 - 11")
+    :setSize("parent.w / 4", 10)
+
 basalt.autoUpdate()
