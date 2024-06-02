@@ -35,8 +35,8 @@ local passInput = mainFrame:addInput()
 passInput
     :setInputType("password")
     :setDefaultText("Password")
-    :setPosition("parent.w / 2 - parent.w / 4", "parent.h / 2 - 11")
-    :setSize("parent.w / 4", 10)
+    :setPosition("parent.w / 4", "parent.h / 2 + 11")
+    :setSize("parent.w / 2", 2)
 
 local function onEnter(self, event, key)
     if key == "enter" then
