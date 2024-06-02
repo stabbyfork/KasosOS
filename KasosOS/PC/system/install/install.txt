@@ -1,7 +1,7 @@
 #wget
 ?https://api.github.com/repos/stabbyfork/KasosOS/contents/KasosOS
 
-!/KasosOS/PC/system/lib/sha256.lua
+!/KasosOS/PC/system/lib/sha2.lua
 https://github.com/Egor-Skriptunoff/pure_lua_SHA/raw/master/sha2.lua
 
 #wget run
