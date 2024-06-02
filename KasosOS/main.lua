@@ -1,6 +1,6 @@
 --print(shell.path())
 
-local expectReq, userCreator = require("cc.expect"), require("KasosOS.PC.system.lib.userlib")
+local expectReq, userCreator = require("cc.expect"), require("/KasosOS/PC/system/lib/userlib")
 local expect, range = expectReq.expect, expectReq.range
 
 local user = userCreator:new("admin", "password")

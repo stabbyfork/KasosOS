@@ -67,7 +67,7 @@ toInstall.close()
 package.path = '/KasosOS/PC/system/lib/?.lua;' .. package.path
 shell.setPath(shell.path() .. ":/KasosOS/PC/system/lib")
 
-local sha, userCreator = require("/KasosOS/PC/system/lib/sha2"), require("KasosOS.PC.system.lib.userlib")
+local sha, userCreator = require("/KasosOS/PC/system/lib/sha2"), require("/KasosOS/PC/system/lib/userlib")
 -- USER SETUP
 local defaultUser = "Guest"
 local defaultPassword = "guestpassword"

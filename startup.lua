@@ -5,6 +5,7 @@ local mainFrame = basalt.createFrame()
 mainFrame:addTexture("/KasosOS/PC/system/assets/desktop/pack.bimg")
 mainFrame:setTextureMode("center")
 
+--local selectedUser = fs.list(settings.)
 local dataFrame = mainFrame:addFrame()
 local userProfile = dataFrame:addImage()
 userProfile
