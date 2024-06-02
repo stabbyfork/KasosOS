@@ -28,6 +28,7 @@ local function waitForInput()
         end
     end
 end
+basalt.autoUpdate()
 
 parallel.waitForAny(updateTime, waitForInput)
 print("complete")
@@ -44,4 +45,3 @@ local function onEnter(self, event, key)
     end
 end
 passInput:onKey(onEnter)
-basalt.autoUpdate()
