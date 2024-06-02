@@ -1,14 +1,14 @@
 local expectReq = require "cc.expect"
 local expect = expectReq.expect
 
---- Generic user class with username and password pointer
+--- Generic user class with username and password
 ---@class User
 local User = {}
 User.__index = User
 
 --- Create a new user
 ---@param username string The username
----@param password string The password pointer
+---@param password string The password as a string
 ---@return User user The user object
 function User:new(username, password)
     expect(1, username, "string")
@@ -18,6 +18,13 @@ function User:new(username, password)
     instance.username = username
     instance.password = password
     return instance
+end
+
+--- Save the userdata of the user
+function User:save()
+    local file = fs.open(settings.get("usersPath") .. self.username .. ".lua", "w")
+    file.write(textutils.serialise(self))
+    file.close()
 end
 
 --- Get the username of the user

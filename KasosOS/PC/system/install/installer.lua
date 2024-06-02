@@ -1,3 +1,5 @@
+local sha, userCreator = require("/KasosOS/PC/system/lib/sha2"), require("/KasosOS/PC/system/lib/usercreate")
+
 local function downloadRepoRecursive(request)
     for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
         local urlpath = "/" .. url.path
@@ -22,6 +24,7 @@ local installList = "https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/s
 local toInstall = http.get(installList)
 local executable = ""
 local selectedName = ""
+
 for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
     line = line:gsub("[\n\r]", " ")
     local firstChar = line:sub(1, 1)
@@ -38,6 +41,7 @@ for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
         end
         downloadRepoRecursive(request)
         request.close()
+        goto continue
     end
     if selectedName == "" then
         local startIndex = line:find("KasosOS", 1, true)
@@ -62,5 +66,22 @@ toInstall.close()
 -- set paths
 package.path = '/KasosOS/PC/system/lib/?.lua;' .. package.path
 shell.setPath(shell.path() .. ":/KasosOS/PC/system/lib")
+
+-- USER SETUP
+local defaultUser = "Guest"
+local defaultPassword = "guestpassword"
+local usersPath = "/KasosOS/PC/system/users/"
+
+if settings.get("usersPath") == nil then
+    settings.define("usersPath", {default=usersPath, description="The path where userdata is stored (always '/' at the end)", type="string"})
+end
+if settings.get("defaultUser") == nil then
+    settings.define("defaultUser", {default=defaultUser, description="The default user", type="string"})
+    if not fs.exists(settings.get("usersPath") .. settings.get("defaultUser") .. ".lua") then
+        local user = userCreator:new(settings.get("defaultUser"), sha.sha256(defaultPassword))
+        user:save()
+    end
+end
+settings.save()
 
 print("Installer complete")
