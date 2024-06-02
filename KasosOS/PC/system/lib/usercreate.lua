@@ -21,10 +21,14 @@ function User:new(username, password)
 end
 
 --- Save the userdata of the user
+---@return string filepath The path to the saved userdata
 function User:save()
-    local file = fs.open(settings.get("usersPath") .. self.username .. ".lua", "w")
-    file.write(textutils.serialise(self))
+    local filepath = settings.get("usersPath") .. self.username .. ".lua"
+    local serialisedData = textutils.serialise(self)
+    local file = fs.open(filepath, "w")
+    file.write("return" .. serialisedData)
     file.close()
+    return filepath
 end
 
 --- Get the username of the user

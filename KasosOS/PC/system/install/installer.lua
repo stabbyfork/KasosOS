@@ -18,6 +18,8 @@ local function downloadRepoRecursive(request)
     end
 end
 
+-- Installation
+
 local installList = "https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt"
 local toInstall = http.get(installList)
 local executable = ""
