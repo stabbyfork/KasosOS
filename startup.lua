@@ -5,11 +5,15 @@ local mainFrame = basalt.createFrame()
 mainFrame:addTexture("/KasosOS/PC/system/assets/desktop/pack.bimg")
 mainFrame:setTextureMode("center")
 
---local selectedUser = fs.list(settings.)
+local selectedUser = settings.get("selectedUser")
 local dataFrame = mainFrame:addFrame()
+dataFrame
+    :setPosition("parent.w/4", "parent.h/4")
+    :setSize("parent.w/2", "parent.h/2")
 local userProfile = dataFrame:addImage()
 userProfile
-    :loadImage()
+    :loadImage(settings.get("usersPath") .. selectedUser .. "/pfp.bimg")
+    :setPosition("parent.w/2", "parent.h/2")
 
 --- The time label
 local timeDisplay = mainFrame:addLabel()

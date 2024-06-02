@@ -77,10 +77,13 @@ local usersPath = "/KasosOS/PC/system/users/"
 local defaultProfileIcon = "/KasosOS/PC/system/assets/default_profile.bimg"
 
 if settings.get("usersPath") == nil then
-    settings.define("usersPath", {default=usersPath, description="The path where userdata is stored (always '/' at the end)", type="string"})
+    settings.define("usersPath", {default=usersPath, description="The path where userdata is stored (always '/' at the end), ONLY SYSTEM DATA, NOT APPS OR PROGRAMS", type="string"})
 end
 if settings.get("defaultProfileIcon") == nil then
     settings.define("defaultProfileIcon", {default=defaultProfileIcon, description="The default profile icon path", type="string"})
+end
+if settings.get("selectedUser") == nil then
+    settings.define("selectedUser", {default=defaultUser, description="The selected user", type="string"})
 end
 
 if settings.get("defaultUser") == nil then

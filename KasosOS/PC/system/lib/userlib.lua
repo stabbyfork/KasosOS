@@ -38,10 +38,10 @@ end
 ---@return string filepath The path to the saved userdata
 function User:save()
     local filepath = settings.get("usersPath") .. self.username
-    local serialisedData = textutils.serialise(self)
     local file = fs.open(filepath .. "/data.lua", "w")
     fs.copy(self:getProfileIcon(), filepath .. "/pfp.bimg")
     self:setProfileIcon(filepath .. "/pfp.bimg")
+    local serialisedData = textutils.serialise(self)
     file.write("return" .. serialisedData)
     file.close()
     return filepath
