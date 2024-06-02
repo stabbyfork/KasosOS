@@ -67,7 +67,7 @@ toInstall.close()
 package.path = '/KasosOS/PC/system/lib/?.lua;' .. package.path
 shell.setPath(shell.path() .. ":/KasosOS/PC/system/lib:/.")
 
-local sha, userCreator = require("/KasosOS/PC/system/lib/sha2"), require("/KasosOS/PC/system/lib/userlib")
+local sha, userLib = require("/KasosOS/PC/system/lib/sha2"), require("/KasosOS/PC/system/lib/userlib")
 -- USER SETUP
 local defaultUser = "Guest"
 local defaultPassword = "guestpassword"
@@ -84,7 +84,7 @@ end
 if settings.get("defaultUser") == nil then
     settings.define("defaultUser", {default=defaultUser, description="The default user", type="string"})
     if not fs.exists(settings.get("usersPath") .. settings.get("defaultUser")) then -- concatenates usersPath to defaultUser as it is where the default user is stored
-        local user = userCreator:new(settings.get("defaultUser"), sha.sha256(defaultPassword))
+        local user = userLib:new(settings.get("defaultUser"), sha.sha256(defaultPassword))
         user:save()
     end
 end
