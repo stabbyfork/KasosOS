@@ -1,5 +1,3 @@
-local sha, userCreator = require("/KasosOS/PC/system/lib/sha2"), require("/KasosOS/PC/system/lib/usercreate")
-
 local function downloadRepoRecursive(request)
     for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
         local urlpath = "/" .. url.path
@@ -67,6 +65,7 @@ toInstall.close()
 package.path = '/KasosOS/PC/system/lib/?.lua;' .. package.path
 shell.setPath(shell.path() .. ":/KasosOS/PC/system/lib")
 
+local sha, userCreator = require("/KasosOS/PC/system/lib/sha2"), require("/KasosOS/PC/system/lib/usercreate")
 -- USER SETUP
 local defaultUser = "Guest"
 local defaultPassword = "guestpassword"
