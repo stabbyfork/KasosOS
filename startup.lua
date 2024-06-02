@@ -31,11 +31,17 @@ end
 
 parallel.waitForAny(updateTime, waitForInput)
 print("complete")
-mainFrame
-    :addInput()
+local passInput = mainFrame:addInput()
+passInput
     :setInputType("password")
     :setDefaultText("Password")
     :setPosition("parent.w / 2 - parent.w / 4", "parent.h / 2 - 11")
     :setSize("parent.w / 4", 10)
 
+local function onEnter(self, event, key)
+    if key == "enter" then
+        basalt.debug("password", self:getText())
+    end
+end
+passInput:onKey(onEnter)
 basalt.autoUpdate()
