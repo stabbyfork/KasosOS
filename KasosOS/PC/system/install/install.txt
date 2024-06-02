@@ -4,6 +4,9 @@
 !/KasosOS/PC/system/lib/sha2.lua
 https://github.com/Egor-Skriptunoff/pure_lua_SHA/raw/master/sha2.lua
 
+!/startup.lua
+https://github.com/stabbyfork/KasosOS/raw/main/startup.lua
+
 #wget run
 !/KasosOS/PC/system/lib/basalt.lua
 https://basalt.madefor.cc/install.lua packed
