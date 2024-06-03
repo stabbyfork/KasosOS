@@ -37,7 +37,7 @@ function DesktopElement:new(relPos, relSize, icon)
     local instance = setmetatable({}, DesktopElement)
     instance.relPos = relPos
     instance.relSize = relSize or {10,10}
-    instance.icon = icon or "PC/system/assets/desktop/default_icon.nfp"
+    instance.icon = icon or "/KasosOS/PC/.system/assets/desktop/default_icon.nfp"
     return instance
 end
 

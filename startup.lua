@@ -1,9 +1,9 @@
 settings.load("/.settings")
-local basalt = require("/KasosOS/PC/system/lib/basalt")
+local basalt = require("basalt")
 local screen = term.current()
 
 local mainFrame = basalt.createFrame()
-mainFrame:addTexture("/KasosOS/PC/system/assets/desktop/pack.bimg")
+mainFrame:addTexture("/KasosOS/PC/.system/assets/desktop/pack.bimg")
 mainFrame:setTextureMode("center")
 
 local selectedUser = settings.get("selectedUser")

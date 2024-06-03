@@ -65,11 +65,11 @@ local function installFiles(installList)
     toInstall.close()
 end
 
-installFiles("https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/system/install/install.txt")
+installFiles("https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/.system/install/install.txt")
 
 --- Set various paths
 local function setPaths()
-    package.path = '/KasosOS/PC/system/lib/?.lua;' .. package.path
+    package.path = '/KasosOS/PC/.system/lib/?.lua;' .. package.path
     shell.setPath("/KasosOS/PC/.system/lib:/:" ..shell.path())
 end
 
@@ -80,8 +80,8 @@ local sha, userLib = require("sha2"), require("userlib")
 local function setupUsers()
     local defaultUser = "Guest"
     local defaultPassword = "guestpassword"
-    local usersPath = "/KasosOS/PC/system/.users/"
-    local defaultProfileIcon = "/KasosOS/PC/system/assets/default_profile.bimg"
+    local usersPath = "/KasosOS/PC/.system/.users/"
+    local defaultProfileIcon = "/KasosOS/PC/.system/assets/default_profile.bimg"
 
     settings.load("/.settings")
     if settings.get("usersPath") == nil then
