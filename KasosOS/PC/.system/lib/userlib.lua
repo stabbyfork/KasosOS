@@ -31,17 +31,17 @@ end
 function User:get(username)
     expect(1, username, "string")
 
-    local user = require(settings.get("usersPath") .. username)
+    local user = require(fs.combine(settings.get("usersPath") .. username))
     return user
 end
 
 --- Save the userdata of the user
 ---@return string filepath The path to the saved userdata
 function User:save()
-    local filepath = settings.get("usersPath") .. self.username
-    local file = fs.open(filepath .. "/data.lua", "w")
-    fs.copy(self:getProfileIcon(), filepath .. "/pfp.bimg")
-    self:setProfileIcon(filepath .. "/pfp.bimg")
+    local filepath = fs.combine(settings.get("usersPath"), self.username)
+    local file = fs.open(fs.combine(filepath, "data.lua"), "w")
+    fs.copy(self:getProfileIcon(), fs.combine(filepath, "pfp.bimg"))
+    self:setProfileIcon(fs.combine(filepath,"/pfp.bimg"))
     local serialisedData = textutils.serialise(self)
     file.write("return" .. serialisedData)
     file.close()
