@@ -1,3 +1,17 @@
+-- VARIABLES FOR INSTALLATION
+local OSPath = "/KasosOS/"
+local systemPath = fs.combine(OSPath, "PC/system") -- important
+local assetsPath = fs.combine(systemPath, "assets/")
+local usersPath = fs.combine(systemPath, ".users/")
+local installPath = fs.combine(systemPath, ".install/")
+local settingsPath = fs.combine(systemPath, ".settings")
+local romPath = fs.combine(systemPath, ".rom/")
+
+
+local defaultUser = "Guest"
+local defaultPassword = "guestpassword"
+local defaultProfileIcon = fs.combine(assetsPath, "default_profile.bimg")
+
 os.pullEvent = os.pullEventRaw
 
 local function downloadRepoRecursive(request)
@@ -67,11 +81,11 @@ local function installFiles(installList)
     toInstall.close()
 end
 
-installFiles("https://github.com/stabbyfork/KasosOS/raw/main/KasosOS/PC/.system/install/install.txt")
+installFiles("https://github.com/stabbyfork/KasosOS/raw/main" .. fs.combine(installPath, "install.txt"))
 
 --- Set various paths
 local function setPaths()
-    package.path = '/KasosOS/PC/.system/lib/?.lua;' .. package.path
+    package.path = fs.combine(installPath, 'lib/?.lua;') .. package.path
     shell.setPath("/KasosOS/PC/.system/lib:/:" ..shell.path())
 end
 
@@ -80,12 +94,7 @@ setPaths()
 local sha, userLib = require("sha2"), require("userlib")
 
 local function setupUsers()
-    local defaultUser = "Guest"
-    local defaultPassword = "guestpassword"
-    local usersPath = "/KasosOS/PC/.system/.users/"
-    local defaultProfileIcon = "/KasosOS/PC/.system/assets/default_profile.bimg"
-
-    settings.load("/.settings")
+    settings.load(settingsPath)
     if settings.get("usersPath") == nil then
         settings.define("usersPath", {default=usersPath, description="The path where userdata is stored, ONLY SYSTEM DATA, NOT APPS OR PROGRAMS", type="string"})
     end
@@ -104,7 +113,7 @@ local function setupUsers()
         end
     end
 
-    settings.save("/.settings")
+    settings.save(settingsPath)
 end
 
 local fs = fs
@@ -125,3 +134,5 @@ _G.fs = {
 setupUsers()
 
 print("Installer complete")
+fs.delete(fs.combine(installPath, "install.txt"))
+fs.delete(fs.combine(installPath, "installer.lua"))
