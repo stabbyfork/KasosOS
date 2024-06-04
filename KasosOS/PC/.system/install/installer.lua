@@ -1,3 +1,5 @@
+os.pullEvent = os.pullEventRaw
+
 local function downloadRepoRecursive(request)
     for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
         local urlpath = "/" .. url.path
