@@ -1,5 +1,9 @@
+--- Utility functions for tables
+---@class tableutil
 local tableutil = {}
+tableutil.__index = tableutil
 
+--- Shallow copy a table, does not copy nested tables
 function tableutil.shallow_copy(table)
     local newTable = {}
     for k, v in pairs(table) do
@@ -8,6 +12,7 @@ function tableutil.shallow_copy(table)
     return newTable
 end
 
+--- Deep copy a table, copies nested tables
 function tableutil.deep_copy(table)
     local newTable = {}
     for k, v in pairs(table) do

@@ -1,16 +1,19 @@
 -- VARIABLES FOR INSTALLATION
-local OSPath = "/KasosOS/"
-local systemPath = fs.combine(OSPath, "PC/system") -- important
-local assetsPath = fs.combine(systemPath, "assets/")
-local usersPath = fs.combine(systemPath, ".users/")
-local installPath = fs.combine(systemPath, ".install/")
-local settingsPath = fs.combine(systemPath, ".settings")
-local romPath = fs.combine(systemPath, ".rom/")
-
+local OSPath = "/KasosOS/" -- important
+local systemPath = fs.combine(OSPath, "PC/system") -- also important
+-- paths that are nested in systemPath
+local paths = {
+    assetsPath = fs.combine(systemPath, "assets/"),
+    usersPath = fs.combine(systemPath, ".users/"),
+    installPath = fs.combine(systemPath, ".install/"),
+    settingsPath = fs.combine(systemPath, ".settings"),
+    libraryPath = fs.combine(systemPath, "lib/"),
+    romPath = fs.combine(systemPath, ".rom/")
+}
 
 local defaultUser = "Guest"
 local defaultPassword = "guestpassword"
-local defaultProfileIcon = fs.combine(assetsPath, "default_profile.bimg")
+local defaultProfileIcon = fs.combine(paths["assetsPath"], "default_profile.bimg")
 
 os.pullEvent = os.pullEventRaw
 
@@ -81,12 +84,12 @@ local function installFiles(installList)
     toInstall.close()
 end
 
-installFiles("https://github.com/stabbyfork/KasosOS/raw/main" .. fs.combine(installPath, "install.txt"))
+installFiles("https://github.com/stabbyfork/KasosOS/raw/main" .. fs.combine(paths["installPath"], "install.txt"))
 
 --- Set various paths
 local function setPaths()
-    package.path = fs.combine(installPath, 'lib/?.lua;') .. package.path
-    shell.setPath("/KasosOS/PC/.system/lib:/:" ..shell.path())
+    package.path = fs.combine(paths["libraryPath"], '?.lua;') .. package.path
+    shell.setPath(shell.path() .. ":" .. paths["libraryPath"])
 end
 
 setPaths()
@@ -94,9 +97,9 @@ setPaths()
 local sha, userLib = require("sha2"), require("userlib")
 
 local function setupUsers()
-    settings.load(settingsPath)
-    if settings.get("usersPath") == nil then
-        settings.define("usersPath", {default=usersPath, description="The path where userdata is stored, ONLY SYSTEM DATA, NOT APPS OR PROGRAMS", type="string"})
+    settings.load(paths["settingsPath"])
+    if settings.get(paths["usersPath"]) == nil then
+        settings.define(paths["usersPath"], {default=paths["usersPath"], description="The path where userdata is stored, ONLY SYSTEM DATA, NOT APPS OR PROGRAMS", type="string"})
     end
     if settings.get("defaultProfileIcon") == nil then
         settings.define("defaultProfileIcon", {default=defaultProfileIcon, description="The default profile icon path", type="string"})
@@ -107,15 +110,16 @@ local function setupUsers()
 
     if settings.get("defaultUser") == nil then
         settings.define("defaultUser", {default=defaultUser, description="The default user", type="string"})
-        if not fs.exists(fs.combine(settings.get("usersPath"), settings.get("defaultUser"))) then -- concatenates usersPath to defaultUser as it is where the default user is stored
+        if not fs.exists(fs.combine(settings.get(paths["usersPath"]), settings.get("defaultUser"))) then -- concatenates paths["usersPath"] to defaultUser as it is where the default user is stored
             local user = userLib:new(settings.get("defaultUser"), sha.sha256(defaultPassword))
             user:save()
         end
     end
 
-    settings.save(settingsPath)
+    settings.save(paths["settingsPath"])
 end
 
+-- TODO move to bios
 local fs = fs
 _G.fs = {
     open=fs.open,
@@ -134,5 +138,5 @@ _G.fs = {
 setupUsers()
 
 print("Installer complete")
-fs.delete(fs.combine(installPath, "install.txt"))
-fs.delete(fs.combine(installPath, "installer.lua"))
+fs.delete(fs.combine(paths["assetsPath"], "install.txt"))
+fs.delete(fs.combine(paths["assetsPath"], "installer.lua"))
