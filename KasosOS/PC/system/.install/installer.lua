@@ -47,7 +47,7 @@ end
 
 --- Set various paths
 local function setPaths()
-    package.path = fs.combine(paths["libraryPath"], '/?.lua;') .. package.path
+    package.path = "/" .. fs.combine(paths["libraryPath"], '/?.lua;') .. package.path
     shell.setPath(shell.path() .. ":/" .. paths["libraryPath"])
 end
 
