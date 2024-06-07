@@ -84,10 +84,10 @@ local function installFiles(installList)
         selectedName = line:sub(2)
         local splitName = split(selectedName, " ")
         local newName
-        for _, split in pairs(splitName) do
-            local sub = paths[split]
+        for _, splitted in pairs(splitName) do
+            local sub = paths[splitted]
             if sub then
-                newName = newName .. sub
+                selectedName = selectedName:gsub(splitted, sub)
             end
         end
         print(newName)
