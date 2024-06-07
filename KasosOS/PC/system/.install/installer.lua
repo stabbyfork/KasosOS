@@ -2,6 +2,9 @@
 local githubRepo = "https://github.com/stabbyfork/KasosOS/raw/main/" -- where files are downloaded
 
 local rootPath = "/" -- VERY important
+if not fs.exists(rootPath) then
+    fs.makeDir(rootPath)
+end
 shell.setDir(rootPath)
 local OSPath = rootPath .. "/KasosOS/" -- important
 local systemPath = fs.combine(OSPath, "/PC/system") -- important
@@ -45,6 +48,7 @@ local function downloadRepoRecursive(request)
     end
 end
 
+-- TODO move to bios.lua (or anything that is ran on startup)
 --- Set various paths
 local function setPaths()
     package.path = "/" .. fs.combine(paths["libraryPath"], '/?.lua;') .. package.path
