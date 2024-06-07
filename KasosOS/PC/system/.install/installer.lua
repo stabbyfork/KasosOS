@@ -45,7 +45,16 @@ local function downloadRepoRecursive(request)
     end
 end
 
+--- Set various paths
+local function setPaths()
+    package.path = fs.combine(paths["libraryPath"], '/?.lua;') .. package.path
+    shell.setPath(shell.path() .. ":/" .. paths["libraryPath"])
+end
+
+setPaths()
+
 -- Installation
+local stringutils = require("stringutils")
 local function installFiles(installList)
     local toInstall = http.get(installList)
     local executable = ""
@@ -59,6 +68,15 @@ local function installFiles(installList)
         goto continue
     elseif firstChar == "!" then
         selectedName = line:sub(2)
+        local splitName = stringutils.split(selectedName, " ")
+        local newName
+        for _, split in pairs(splitName) do
+            local sub = paths[split]
+            if sub then
+                newName = newName .. sub
+            end
+        end
+        print(newName)
         goto continue
     elseif firstChar == "?" then -- github repo
         local request, err, errResp = http.get({url=line:sub(2), headers={["Accept"]="application/vnd.github.raw+json"}})
@@ -94,13 +112,7 @@ end
 
 installFiles(githubRepo .. fs.combine(paths["installPath"], "/install.txt"))
 
---- Set various paths
-local function setPaths()
-    package.path = fs.combine(paths["libraryPath"], '/?.lua;') .. package.path
-    shell.setPath(shell.path() .. ":/" .. paths["libraryPath"])
-end
 
-setPaths()
 
 local sha, userLib = require("sha2"), require("userlib")
 
