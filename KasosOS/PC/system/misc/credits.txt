@@ -1,5 +1,5 @@
-@stabbyfork https://github.com/stabbyfork/KasosOS The OS
-@Pyroxenium https://github.com/Pyroxenium/Basalt The UI framework
-@Egor-Skriptunoff https://github.com/Egor-Skriptunoff/pure_lua_SHA Pure Lua SHA-256
-@MCJack123 https://gist.github.com/MCJack123/42bc69d3757226c966da752df80437dc unbios.lua | UnBios
-@MCJack123 https://gist.github.com/MCJack123/4cf6fc941a2d412b4195caafb9636363  dbprotect.lua | Protect your functions from the debug library
+@stabbyfork https://github.com/stabbyfork/KasosOS The OS [MIT]
+@Pyroxenium https://github.com/Pyroxenium/Basalt The UI framework [MIT]
+@Egor-Skriptunoff https://github.com/Egor-Skriptunoff/pure_lua_SHA Pure Lua SHA-256 [MIT]
+@MCJack123 https://gist.github.com/MCJack123/42bc69d3757226c966da752df80437dc unbios.lua | UnBios [MIT]
+@MCJack123 https://gist.github.com/MCJack123/4cf6fc941a2d412b4195caafb9636363  dbprotect.lua | Protect your functions from the debug library [CC0]
