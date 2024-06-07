@@ -1,25 +1,33 @@
 -- VARIABLES FOR INSTALLATION
-local OSPath = "/KasosOS/" -- important
-local systemPath = fs.combine(OSPath, "PC/system") -- also important
--- paths that are nested in systemPath
+local githubRepo = "https://github.com/stabbyfork/KasosOS/raw/main/" -- where files are downloaded
+
+local rootPath = "/" -- VERY important
+shell.setDir(rootPath)
+local OSPath = rootPath .. "/KasosOS/" -- important
+local systemPath = fs.combine(OSPath, "/PC/system") -- important
+-- paths that are nested in systemPath, assume initial slash is removed
 local paths = {
-    assetsPath = fs.combine(systemPath, "assets/"),
-    usersPath = fs.combine(systemPath, ".users/"),
-    installPath = fs.combine(systemPath, ".install/"),
-    settingsPath = fs.combine(systemPath, ".settings"),
-    libraryPath = fs.combine(systemPath, "lib/"),
-    romPath = fs.combine(systemPath, ".rom/")
+    rootPath = rootPath,
+    OSPath = OSPath,
+    systemPath = systemPath,
+    assetsPath = fs.combine(systemPath, "/assets/"),
+    usersPath = fs.combine(systemPath, "/.users/"),
+    installPath = fs.combine(systemPath, "/.install/"),
+    settingsPath = fs.combine(systemPath, "/.settings"),
+    libraryPath = fs.combine(systemPath, "/lib/"),
+    romPath = fs.combine(systemPath, "/.rom/")
 }
+print(textutils.serialise(paths))
 
 local defaultUser = "Guest"
 local defaultPassword = "guestpassword"
-local defaultProfileIcon = fs.combine(paths["assetsPath"], "default_profile.bimg")
+local defaultProfileIcon = fs.combine(paths["assetsPath"], "/default_profile.bimg")
 
 os.pullEvent = os.pullEventRaw
 
 local function downloadRepoRecursive(request)
     for _, url in ipairs(textutils.unserialiseJSON(request.readAll())) do
-        local urlpath = "/" .. url.path
+        local urlpath = url.path
         if url.type == "file" then
             if fs.exists(urlpath) then
                 print(urlpath .. " already exists")
@@ -84,12 +92,12 @@ local function installFiles(installList)
     toInstall.close()
 end
 
-installFiles("https://github.com/stabbyfork/KasosOS/raw/main" .. fs.combine(paths["installPath"], "install.txt"))
+installFiles(githubRepo .. fs.combine(paths["installPath"], "/install.txt"))
 
 --- Set various paths
 local function setPaths()
-    package.path = fs.combine(paths["libraryPath"], '?.lua;') .. package.path
-    shell.setPath(shell.path() .. ":" .. paths["libraryPath"])
+    package.path = fs.combine(paths["libraryPath"], '/?.lua;') .. package.path
+    shell.setPath(shell.path() .. ":/" .. paths["libraryPath"])
 end
 
 setPaths()
@@ -119,24 +127,12 @@ local function setupUsers()
     settings.save(paths["settingsPath"])
 end
 
--- TODO move to bios
-local fs = fs
-_G.fs = {
-    open=fs.open,
-    makeDir=fs.makeDir,
-    list=fs.list,
-    exists=fs.exists,
-    delete=fs.delete,
-    isDir=fs.isDir,
-    isReadOnly=fs.isReadOnly,
-    getFreeSpace=fs.getFreeSpace,
-    combine=fs.combine,
-    complete=fs.complete
-}
+
+
 
 -- USER SETUP
 setupUsers()
 
 print("Installer complete")
-fs.delete(fs.combine(paths["assetsPath"], "install.txt"))
-fs.delete(fs.combine(paths["assetsPath"], "installer.lua"))
+fs.delete(fs.combine(paths["assetsPath"], "/install.txt"))
+fs.delete(fs.combine(paths["assetsPath"], "/installer.lua"))
