@@ -14,6 +14,6 @@ function stringutil.split(inputstr, sep)
       table.insert(t, str)
     end
     return t
-  end
+end
 
 return stringutil

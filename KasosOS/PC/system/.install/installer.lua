@@ -2,10 +2,12 @@
 local githubRepo = "https://github.com/stabbyfork/KasosOS/raw/main/" -- where files are downloaded
 
 local rootPath = "/" -- VERY important
+
 if not fs.exists(rootPath) then
     fs.makeDir(rootPath)
 end
 shell.setDir(rootPath)
+
 local OSPath = rootPath .. "/KasosOS/" -- important
 local systemPath = fs.combine(OSPath, "/PC/system") -- important
 -- paths that are nested in systemPath, assume initial slash is removed
@@ -48,6 +50,15 @@ local function downloadRepoRecursive(request)
     end
 end
 
+local function split(inputstr, sep)
+    sep = sep or "%s"
+    local t = {}
+    for str in inputstr:gmatch("([^"..sep.."]+)") do
+      table.insert(t, str)
+    end
+    return t
+end
+
 -- TODO move to bios.lua (or anything that is ran on startup)
 --- Set various paths
 local function setPaths()
@@ -58,7 +69,6 @@ end
 setPaths()
 
 -- Installation
-local stringutils = require("stringutils")
 local function installFiles(installList)
     local toInstall = http.get(installList)
     local executable = ""
@@ -72,7 +82,7 @@ local function installFiles(installList)
         goto continue
     elseif firstChar == "!" then
         selectedName = line:sub(2)
-        local splitName = stringutils.split(selectedName, " ")
+        local splitName = split(selectedName, " ")
         local newName
         for _, split in pairs(splitName) do
             local sub = paths[split]
