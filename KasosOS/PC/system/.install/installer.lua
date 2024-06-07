@@ -22,7 +22,6 @@ local paths = {
     libraryPath = fs.combine(systemPath, "/lib/"),
     romPath = fs.combine(systemPath, "/.rom/")
 }
-print(textutils.serialise(paths))
 
 local defaultUser = "Guest"
 local defaultPassword = "guestpassword"
@@ -77,20 +76,19 @@ local function installFiles(installList)
     for line in string.gmatch(toInstall.readAll(), "[^\r\n]+") do
     line = line:gsub("[\n\r]", " ")
     local firstChar = line:sub(1, 1)
-    if firstChar == "#" then
+    if firstChar == "#" then -- set executable
         executable = line:sub(2)
         goto continue
-    elseif firstChar == "!" then
+    elseif firstChar == "!" then -- path annotation
         selectedName = line:sub(2)
         local splitName = split(selectedName, " ")
-        local newName
         for _, splitted in pairs(splitName) do
             local sub = paths[splitted]
             if sub then
                 selectedName = selectedName:gsub(splitted, sub)
             end
         end
-        print(newName)
+        selectedName = selectedName:gsub("%s", "")
         goto continue
     elseif firstChar == "?" then -- github repo
         local request, err, errResp = http.get({url=line:sub(2), headers={["Accept"]="application/vnd.github.raw+json"}})
@@ -101,6 +99,8 @@ local function installFiles(installList)
         end
         downloadRepoRecursive(request)
         request.close()
+        goto continue
+    elseif firstChar == "-" then -- comment
         goto continue
     end
     if selectedName == "" then

@@ -1,13 +1,23 @@
 #wget
 ?https://api.github.com/repos/stabbyfork/KasosOS/contents/KasosOS
 
-!/KasosOS/PC/.system/lib/sha2.lua
 !libraryPath /sha2.lua
 https://github.com/Egor-Skriptunoff/pure_lua_SHA/raw/master/sha2.lua
 
+!libraryPath /dbprotect.lua
+https://gist.github.com/MCJack123/4cf6fc941a2d412b4195caafb9636363/raw/7df32d4e742894f5b4a22cee4ece17abb7d0f3dd/dbprotect.lua
+
+!libraryPath /unbios.lua
+https://gist.github.com/MCJack123/42bc69d3757226c966da752df80437dc/raw/887547d8283fbfe6693c6586566c16b79d47a6ae/unbios.lua
+
+- ALWAYS computer root
+!/bios.lua
+https://github.com/stabbyfork/KasosOS/raw/main/bios.lua
+
+- ALWAYS computer root
 !/startup.lua
 https://github.com/stabbyfork/KasosOS/raw/main/startup.lua
 
 #wget run
-!/KasosOS/PC/.system/lib/basalt.lua
+!libraryPath /basalt.lua
 https://basalt.madefor.cc/install.lua packed
