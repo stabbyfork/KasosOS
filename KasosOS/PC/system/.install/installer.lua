@@ -22,9 +22,6 @@ local paths = {
     libraryPath = fs.combine(systemPath, "/lib/"),
     romPath = fs.combine(systemPath, "/.rom/")
 }
-local romPaths = {
-    libraryPath = fs.combine(paths["romPath"], "/lib/")
-}
 
 local defaultUser = "Guest"
 local defaultPassword = "guestpassword"
@@ -89,11 +86,9 @@ local function installFiles(installList)
             local sub = paths[splitted]
             if sub then
                 selectedName = selectedName:gsub(splitted, sub)
-            elseif splitted == "rom" then
-                sub = romPaths[splitted]
-                if sub then
-                    selectedName = selectedName:gsub(splitted, sub)
-                end
+            else
+                print("Path not found: " .. splitted)
+                sleep(5)
             end
         end
         selectedName = selectedName:gsub("%s", "")
